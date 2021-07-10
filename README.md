@@ -1,70 +1,17 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Intro
+This toy project is to demonstrate how to interact with a HID device using React. The specific device used here is a Mag-Tek DynaMag card reader.
 
-## Available Scripts
+# Preliminary
+The Mag-Tek DynaMag (and others) come configured as a Keyboard device. This will not work as cleanly in a browser due to how the OS and browser interpret
+input from keyboards. In order for the device to work with [WebHID](https://developer.mozilla.org/en-US/docs/Web/API/WebHID_API) you will need to adjust the internal settings of the device to set it into HID mode. 
+Follow the instruction in [this manual](https://www.magtek.com/content/documentationfiles/d998200076.pdf) to download the settings program for the device. The 
+manual is not clear on this but after launching the configurator, under the top section `Reader Config Options` select `MODE_HID` from the dropdown and click the
+`Change Config` button. After this the reader can be used by the WebHID API for Windows, MacOS and linux.
 
-In the project directory, you can run:
+It's worth noting here that the device in Keyboard emulation mode binds with a  **productId** of `0x0001` but after it's switched over to HID mode it binds with `0x0002`.
 
-### `yarn start`
+# Running
+`npm i && npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+If the device is previously unpaired then you can click the `Request Device` button to pair and open the device. Browsers only allow the pairing of devices directly inside a user geusture like a button click. So, somewhere in the app this will have to be done but it doesn't have to be done on this screen. Once opened the green light on the top of the reader will illuminate. If it has been paired already a react effect in the App component should pick up the previously paired device and make sure it's opened with no user interaction. Once the device is ready it will continue to read card swipes until the session is closed. 
