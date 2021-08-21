@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
+import TopazDemo from './TopazDemo';
 
 const vendorId = 0x0801;
 const productId = 0x0002;
@@ -142,7 +143,7 @@ function App() {
     }
     console.log("attempting to pair an un-paired reader.");
     try {
-      const selected = await navigator.hid.requestDevice({ barcodeFilters });
+      const selected = await navigator.hid.requestDevice({ filters });
       if (!selected || selected.length === 0) {
         return
       }
@@ -188,7 +189,8 @@ function App() {
         <span>Barcode Scanner data:</span>
         <pre>{barcodeScannerString}</pre>
       </div>
-      {errMsg && <div> <span>Barcode Scanner"</span> </div>}
+      {errMsg && (<div> <span>Barcode Scanner"</span> </div>)}
+      <TopazDemo/>
     </div>
   );
 }

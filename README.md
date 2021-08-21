@@ -13,6 +13,9 @@ It's worth noting here that the device in Keyboard emulation mode binds with a  
 
 Similarly the Symbol DS9208 barcode scanner needs to be switched from it's default mode to a UDB HID mode where it doesn't also send keystrokes to the web browser.  To accomplish this, set the DS9208 to IBM HAND-HELD USB mode which will change the **productId**  to `0x1300` and the **vendorId** will remain the same.  This can be accomplished by scanned the included quick refernce sheet with the appropriate mode barcode.
 
+# Topaz signature tablet
+The Topaz signature tablet will work if installed. You must have already installed the SigWeb binary available [here](https://topazsystems.com/sdks/sigweb.html). Once installed the page should be able to interact with the tablet. This device is **not** using the WebHID interface as the USB API for the devices are proprietary and require drivers. You must follow the instructions in the above link to properly install the binary driver and configure it for your specific tablet. 
+
 # Running
 `npm i && npm start`
 
